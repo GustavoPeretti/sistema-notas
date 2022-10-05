@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Notas</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/700/700291.png" type="image/x-icon">
+    <style>
+        body {
+            background-color: mediumturquoise;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 4px black;
+        }
+        #no-send-form { 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        input {
+            margin-bottom: 0.5em;
+        }
+        #nome {
+            margin-bottom: 2em;
+        }
+        #envio {
+            margin-top: 2em;
+            border-radius: 1em;
+        }
+        #result {
+            display: inline-flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5em;
+            text-align: center ;
+            margin-top: 2em;
+            background-color: white;
+            border: black 2px solid;
+        }
+        #container {
+            display: flex;
+            justify-content: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de notas</h1>
+    <div id="no-send-form">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+        </div>
+        <div>
+            <label for="n1">Nota 1: </label>
+            <input type="number" name="n1" id="n1">
+        </div>
+        <div>
+            <label for="n2">Nota 2: </label>
+            <input type="number" name="n2" id="n2">
+        </div>
+        <div>
+            <label for="n3">Nota 3: </label>
+            <input type="number" name="n3" id="n3">
+        </div>
+        <button id="envio">Calcular média</button>
+    </div>
+    <div id="container">
+        <div id="result">
+            <span id="aluno"></span>
+            <span id="media"></span>
+            <span id="estado"></span>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        let btn = document.getElementById('envio');
+
+        btn.addEventListener('click', (e) => {
+
+        e.preventDefault();
+        
+        let nome = document.getElementById('nome').value;
+        let n1 = parseFloat(document.getElementById('n1').value);
+        let n2 = parseFloat(document.getElementById('n2').value);
+        let n3 = parseFloat(document.getElementById('n3').value);
+        
+
+        let media = (n1 + n2 + n3) / 3;
+
+        if (typeof nome == String || nome.length == 0 || isNaN(media) || n1 < 0 || n2 < 0 || n3 < 0 || n1 > 10 || n2 > 10 || n3 > 10) {
+            alert('Valores inválidos, tente novamente.');
+            return;
+        }
+
+        document.getElementById('container').style.display = 'flex'
+
+        document.getElementById('aluno').innerHTML = 'Aluno: ' + nome;
+        document.getElementById('media').innerHTML = 'Média: ' + media;
+        if (media < 6) {
+            var estado = 'Reprovado';
+        }
+        else {
+            var estado = 'Aprovado';
+        }
+        document.getElementById('estado').innerHTML = 'Estado: ' + estado;
+        }
+        );
+</script>
+</body>
+</html>
